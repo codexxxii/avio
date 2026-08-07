@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-black text-white;
+  }
+  button {
+    @apply px-5 h-8 rounded-md cursor-pointer text-sm;
+  }
+  ::selection {
+    @apply bg-white text-black;
+  }
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
