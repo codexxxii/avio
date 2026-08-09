@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import MaxWidthWrapper from "@/components/max-width-wrapper";
 
 export const Route = createFileRoute("/_authenticated/dashboard/")({
   component: RouteComponent,
@@ -7,14 +6,9 @@ export const Route = createFileRoute("/_authenticated/dashboard/")({
 
 function RouteComponent() {
   return (
-    <MaxWidthWrapper className="">
-      <p>
-        {Intl.DateTimeFormat("US-en", {
-          month: "long",
-          day: "numeric",
-          year: "numeric",
-        }).format(new Date())}
-      </p>
-    </MaxWidthWrapper>
+    <div className="p-5 flex w-full bg-red-500 h-screen">
+      <main className="w-[60vw]">main</main>
+      <div className="w-20vw border-l border-l-gray-100">right bar</div>
+    </div>
   );
 }

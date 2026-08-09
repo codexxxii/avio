@@ -1,5 +1,6 @@
 import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
 import { userQueryOptions } from "@/lib/api";
+import Sidebar from "@/components/sidebar";
 
 export const Route = createFileRoute("/_authenticated")({
   beforeLoad: ({ context }) => {
@@ -16,8 +17,11 @@ function RouteComponent() {
     return Navigate({ to: "/" });
   }
   return (
-    <div>
-      <Outlet />
+    <div className="w-full h-screen flex">
+      <Sidebar />
+      <main className="w-4/5 bg-blue-500">
+        <Outlet />
+      </main>
     </div>
   );
 }

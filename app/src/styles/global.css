@@ -1,14 +1,11 @@
 @import "tailwindcss";
 
 @layer base {
-  body {
-    @apply bg-black text-white;
-  }
   button {
     @apply px-5 h-8 rounded-md cursor-pointer text-sm;
   }
   ::selection {
-    @apply bg-white text-black;
+    @apply bg-black text-white;
   }
 }
 

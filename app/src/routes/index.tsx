@@ -11,7 +11,7 @@ function Index() {
     <div>
       <header className="w-full h-15">
         <MaxWidthWrapper className="h-full border-b border-b-gray-900 flex justify-between items-center">
-          <p className="text-3xl font-semibold tracking-tighter">avio</p>
+          <p className="text-3xl font-semibold tracking-tighter">Avio</p>
           <AuthStatus />
         </MaxWidthWrapper>
       </header>

@@ -11,7 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as AuthenticatedCalendarIndexRouteImport } from './routes/_authenticated/calendar/index'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
+import { Route as AuthenticatedStatisticsIndexRouteImport } from './routes/_authenticated/statistics/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,33 +25,67 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedCalendarIndexRoute =
+  AuthenticatedCalendarIndexRouteImport.update({
+    id: '/calendar/',
+    path: '/calendar/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedDashboardIndexRoute =
   AuthenticatedDashboardIndexRouteImport.update({
     id: '/dashboard/',
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedSettingsIndexRoute =
+  AuthenticatedSettingsIndexRouteImport.update({
+    id: '/settings/',
+    path: '/settings/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedStatisticsIndexRoute =
+  AuthenticatedStatisticsIndexRouteImport.update({
+    id: '/statistics/',
+    path: '/statistics/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/calendar/': typeof AuthenticatedCalendarIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/statistics/': typeof AuthenticatedStatisticsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/calendar': typeof AuthenticatedCalendarIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/settings': typeof AuthenticatedSettingsIndexRoute
+  '/statistics': typeof AuthenticatedStatisticsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/_authenticated/calendar/': typeof AuthenticatedCalendarIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/_authenticated/statistics/': typeof AuthenticatedStatisticsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard/'
+  fullPaths: '/' | '/calendar/' | '/dashboard/' | '/settings/' | '/statistics/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard'
-  id: '__root__' | '/' | '/_authenticated' | '/_authenticated/dashboard/'
+  to: '/' | '/calendar' | '/dashboard' | '/settings' | '/statistics'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/_authenticated/calendar/'
+    | '/_authenticated/dashboard/'
+    | '/_authenticated/settings/'
+    | '/_authenticated/statistics/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -72,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/calendar/': {
+      id: '/_authenticated/calendar/'
+      path: '/calendar'
+      fullPath: '/calendar/'
+      preLoaderRoute: typeof AuthenticatedCalendarIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/dashboard/': {
       id: '/_authenticated/dashboard/'
       path: '/dashboard'
@@ -79,15 +123,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/settings/': {
+      id: '/_authenticated/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/statistics/': {
+      id: '/_authenticated/statistics/'
+      path: '/statistics'
+      fullPath: '/statistics/'
+      preLoaderRoute: typeof AuthenticatedStatisticsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
 interface AuthenticatedRouteChildren {
+  AuthenticatedCalendarIndexRoute: typeof AuthenticatedCalendarIndexRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedSettingsIndexRoute: typeof AuthenticatedSettingsIndexRoute
+  AuthenticatedStatisticsIndexRoute: typeof AuthenticatedStatisticsIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedCalendarIndexRoute: AuthenticatedCalendarIndexRoute,
   AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+  AuthenticatedSettingsIndexRoute: AuthenticatedSettingsIndexRoute,
+  AuthenticatedStatisticsIndexRoute: AuthenticatedStatisticsIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
