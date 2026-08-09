@@ -8,7 +8,13 @@ export const Route = createFileRoute("/_authenticated/dashboard/")({
 function RouteComponent() {
   return (
     <MaxWidthWrapper className="">
-      <p></p>
+      <p>
+        {Intl.DateTimeFormat("US-en", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        }).format(new Date())}
+      </p>
     </MaxWidthWrapper>
   );
 }
