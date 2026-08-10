@@ -4,9 +4,6 @@
   button {
     @apply px-5 h-8 rounded-md cursor-pointer text-sm;
   }
-  ::selection {
-    @apply bg-black text-white;
-  }
 }
 
 body {

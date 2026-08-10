@@ -19,7 +19,7 @@ function RouteComponent() {
   return (
     <div className="w-full h-screen flex">
       <Sidebar />
-      <main className="w-4/5 bg-blue-500">
+      <main className="w-4/5 flex">
         <Outlet />
       </main>
     </div>
