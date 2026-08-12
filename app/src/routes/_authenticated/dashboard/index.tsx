@@ -1,16 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, Ruler, Scale, User } from "lucide-react";
+import { Ruler, Scale, User } from "lucide-react";
 import { motion } from "framer-motion";
 import { itemVariants } from "@/lib/animations";
 import { useContext } from "@/lib/use-context";
 import CreateNoteModal from "@/components/modals/notes/create-note-modal";
+import Notes from "@/components/notes";
 
 export const Route = createFileRoute("/_authenticated/dashboard/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { createNoteModal, setCreateNoteModal } = useContext();
+  const { createNoteModal } = useContext();
 
   return (
     <>
@@ -152,23 +153,7 @@ function RouteComponent() {
             </motion.div>
           </motion.div>
 
-          <motion.div className="w-2/5 h-full" variants={itemVariants as any}>
-            <motion.div
-              className="w-full flex justify-between items-center"
-              variants={itemVariants as any}
-            >
-              <p className="text-lg font-extrabold tracking-tighter">Notes</p>
-
-              <motion.button
-                className="bg-black text-white h-7! w-7! p-0! grid place-items-center"
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.92 }}
-                onClick={() => setCreateNoteModal(true)}
-              >
-                <Plus size={15} />
-              </motion.button>
-            </motion.div>
-          </motion.div>
+          <Notes />
         </motion.div>
         {createNoteModal && <CreateNoteModal />}
       </main>

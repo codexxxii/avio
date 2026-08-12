@@ -1,6 +1,7 @@
 import { hc } from "hono/client";
 import type { ApiRoutes } from "@server/app";
 import { queryOptions } from "@tanstack/react-query";
+import type { CreateNote } from "@server/shared-types";
 
 const api = hc<ApiRoutes>("/").api;
 
@@ -26,3 +27,38 @@ export const userQueryOptions = queryOptions({
   queryFn: getCurrentUser,
   staleTime: Infinity,
 });
+
+// Notes
+export async function createNote(note: CreateNote) {
+  try {
+    const res = await api.notes.$post({ json: note });
+
+    if (!res.ok) {
+      throw new Error("SERVER ERROR");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getNotes() {
+  try {
+    const res = await api.notes.$get();
+
+    if (!res.ok) {
+      throw new Error("SERVER ERROR");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
