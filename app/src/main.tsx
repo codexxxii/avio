@@ -6,7 +6,7 @@ import { ClerkProvider } from "@clerk/react";
 import "@/styles/global.css";
 
 // Create query client
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";

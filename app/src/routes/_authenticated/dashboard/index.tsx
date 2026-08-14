@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Ruler, Scale, User } from "lucide-react";
+import { Gauge, Ruler, Scale, User } from "lucide-react";
 import { motion } from "framer-motion";
 import { itemVariants } from "@/lib/animations";
 import { useContext } from "@/lib/use-context";
@@ -144,11 +144,11 @@ function RouteComponent() {
               className="w-full h-full rounded-md flex gap-2 justify-center items-center bg-indigo-100"
             >
               <div className="w-15 h-15 rounded-full bg-white grid place-items-center">
-                <User />
+                <Gauge />
               </div>
               <div className="flex text-center flex-col">
-                <p className="text-gray-500">Age</p>
-                <p>27</p>
+                <p className="text-gray-500">BMI</p>
+                <p>26.44</p>
               </div>
             </motion.div>
           </motion.div>

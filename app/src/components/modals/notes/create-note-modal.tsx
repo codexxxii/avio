@@ -19,11 +19,17 @@ export default function CreateNoteModal() {
   });
 
   const onSubmit = async (values: CreateNote) => {
-    toast.promise(async () => await createNote(values), {
-      loading: "Creating note...",
-      success: "Note Created",
-      error: "Failed to create note",
-    });
+    toast.promise(
+      async () => {
+        await createNote(values);
+        setCreateNoteModal(false);
+      },
+      {
+        loading: "Creating note...",
+        success: "Note Created",
+        error: "Failed to create note",
+      },
+    );
   };
 
   return (

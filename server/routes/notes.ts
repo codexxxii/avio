@@ -1,9 +1,9 @@
 import { Hono } from "hono";
 import { getUser } from "../clerk";
 import { db } from "../db";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { insertNoteSchema, notes } from "../db/schema";
-import { createNoteSchema } from "../shared-types";
+import { createNoteSchema, deleteNoteSchema } from "../shared-types";
 import { zValidator } from "@hono/zod-validator";
 
 export const noteRoutes = new Hono()
@@ -41,6 +41,27 @@ export const noteRoutes = new Hono()
       c.status(201);
 
       return c.json({ note });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  })
+  .delete("/", getUser, zValidator("json", deleteNoteSchema), async (c) => {
+    try {
+      const { userId } = c.var.user;
+      const { id } = c.req.valid("json");
+
+      const note = await db
+        .delete(notes)
+        .where(and(eq(notes.user_id, userId), eq(notes.id, id!)))
+        .returning()
+        .then((res) => res[0]);
+
+      if (!note) {
+        throw new Error("Note does not exists");
+      }
+
+      return c.json(note);
     } catch (error) {
       console.log(error);
       throw error;

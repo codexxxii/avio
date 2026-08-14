@@ -1,12 +1,19 @@
 import { motion } from "framer-motion";
 import { itemVariants } from "@/lib/animations";
 import { useContext } from "@/lib/use-context";
-import { Plus } from "lucide-react";
+import { Eye, Plus } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getNotes } from "@/lib/api";
+import NoteModal from "./modals/notes/note-modal";
+import { useState } from "react";
 
 export default function Notes() {
-  const { setCreateNoteModal } = useContext();
+  const { setCreateNoteModal, setViewNoteModal, viewNoteModal } = useContext();
+  const [note, setNote] = useState<{
+    id: string;
+    title: string;
+    content: string;
+  } | null>(null);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["notes"],
@@ -35,7 +42,39 @@ export default function Notes() {
       </motion.div>
       {isLoading && <p>loading...</p>}
       {error && <p>Somthing went wrong, try again</p>}
-      {data?.data && <div>{data.data.length}</div>}
+      {data?.data && (
+        <>
+          {data.data.map((note) => (
+            <div
+              key={note.id}
+              className="w-full flex justify-between items-center gap-2"
+            >
+              <div className="grow">
+                <p>- {note.title}</p>
+              </div>
+              <Eye
+                size={17}
+                className="cursor-pointer"
+                onClick={() => {
+                  setNote({
+                    id: note.id,
+                    title: note.title,
+                    content: note.content,
+                  });
+                  setViewNoteModal(true);
+                }}
+              />
+            </div>
+          ))}
+        </>
+      )}
+      {viewNoteModal && (
+        <NoteModal
+          id={note?.id!}
+          title={note?.title!}
+          content={note?.content!}
+        />
+      )}
     </motion.div>
   );
 }

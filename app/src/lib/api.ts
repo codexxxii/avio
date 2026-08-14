@@ -1,5 +1,6 @@
 import { hc } from "hono/client";
 import type { ApiRoutes } from "@server/app";
+import { queryClient } from "@/main";
 import { queryOptions } from "@tanstack/react-query";
 import type { CreateNote } from "@server/shared-types";
 
@@ -39,6 +40,8 @@ export async function createNote(note: CreateNote) {
 
     const data = await res.json();
 
+    queryClient.invalidateQueries({ queryKey: ["notes"] });
+
     return data;
   } catch (error) {
     console.log(error);
@@ -55,6 +58,25 @@ export async function getNotes() {
     }
 
     const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function deleteNote({ id }: { id: string }) {
+  try {
+    const res = await api.notes.$delete({ json: { id } });
+
+    if (!res.ok) {
+      throw new Error("SERVER ERROR");
+    }
+
+    const data = await res.json();
+
+    queryClient.invalidateQueries({ queryKey: ["notes"] });
 
     return data;
   } catch (error) {
