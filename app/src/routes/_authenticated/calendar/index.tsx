@@ -1,9 +1,24 @@
-import { createFileRoute } from '@tanstack/react-router'
+import Calendar from "@/components/calendar";
+import AddEventModal from "@/components/modals/calendar/add-event-modal";
+import AddRecipeModal from "@/components/modals/calendar/add-recipe-modal";
+import AddWorkoutModal from "@/components/modals/calendar/add-workout-modal";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/_authenticated/calendar/')({
+export const Route = createFileRoute("/_authenticated/calendar/")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  return <div>Hello "/_authenticated/calendar/"!</div>
+  return (
+    <div className="w-full p-5 flex gap-4">
+      <div className="w-3/5">
+        <Calendar />
+      </div>
+      <div className="w-2/5 flex flex-col gap-4">
+        <AddRecipeModal />
+        <AddWorkoutModal />
+        <AddEventModal />
+      </div>
+    </div>
+  );
 }

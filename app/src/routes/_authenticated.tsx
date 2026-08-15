@@ -13,7 +13,7 @@ export const Route = createFileRoute("/_authenticated")({
 function RouteComponent() {
   const user = Route.useRouteContext();
 
-  if (!user) {
+  if (!user.userData) {
     return Navigate({ to: "/" });
   }
   return (

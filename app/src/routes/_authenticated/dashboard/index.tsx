@@ -157,7 +157,41 @@ function RouteComponent() {
         </motion.div>
         {createNoteModal && <CreateNoteModal />}
       </main>
-      <div className="w-[20vw] border-l border-l-gray-100 p-5">right bar</div>
+      <div className="w-[20vw] border-l border-l-gray-100 p-5">
+        <motion.div
+          className="w-full flex justify-between items-center"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.12,
+              },
+            },
+          }}
+        >
+          <motion.p
+            className="text-xl font-extrabold tracking-tighter"
+            variants={{
+              hidden: {
+                opacity: 0,
+                y: 8,
+              },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.4,
+                  ease: "easeOut",
+                },
+              },
+            }}
+          >
+            Todays Activities
+          </motion.p>
+        </motion.div>
+      </div>
     </>
   );
 }

@@ -13,8 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedCalendarIndexRouteImport } from './routes/_authenticated/calendar/index'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedRecipesIndexRouteImport } from './routes/_authenticated/recipes/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
 import { Route as AuthenticatedStatisticsIndexRouteImport } from './routes/_authenticated/statistics/index'
+import { Route as AuthenticatedRecipesCreateIndexRouteImport } from './routes/_authenticated/recipes/create/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -37,6 +39,12 @@ const AuthenticatedDashboardIndexRoute =
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedRecipesIndexRoute =
+  AuthenticatedRecipesIndexRouteImport.update({
+    id: '/recipes/',
+    path: '/recipes/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedSettingsIndexRoute =
   AuthenticatedSettingsIndexRouteImport.update({
     id: '/settings/',
@@ -49,20 +57,30 @@ const AuthenticatedStatisticsIndexRoute =
     path: '/statistics/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedRecipesCreateIndexRoute =
+  AuthenticatedRecipesCreateIndexRouteImport.update({
+    id: '/recipes/create/',
+    path: '/recipes/create/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calendar/': typeof AuthenticatedCalendarIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/recipes/': typeof AuthenticatedRecipesIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/statistics/': typeof AuthenticatedStatisticsIndexRoute
+  '/recipes/create/': typeof AuthenticatedRecipesCreateIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calendar': typeof AuthenticatedCalendarIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/recipes': typeof AuthenticatedRecipesIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/statistics': typeof AuthenticatedStatisticsIndexRoute
+  '/recipes/create': typeof AuthenticatedRecipesCreateIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,22 +88,40 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_authenticated/calendar/': typeof AuthenticatedCalendarIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/recipes/': typeof AuthenticatedRecipesIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/statistics/': typeof AuthenticatedStatisticsIndexRoute
+  '/_authenticated/recipes/create/': typeof AuthenticatedRecipesCreateIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calendar/' | '/dashboard/' | '/settings/' | '/statistics/'
+  fullPaths:
+    | '/'
+    | '/calendar/'
+    | '/dashboard/'
+    | '/recipes/'
+    | '/settings/'
+    | '/statistics/'
+    | '/recipes/create/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calendar' | '/dashboard' | '/settings' | '/statistics'
+  to:
+    | '/'
+    | '/calendar'
+    | '/dashboard'
+    | '/recipes'
+    | '/settings'
+    | '/statistics'
+    | '/recipes/create'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/_authenticated/calendar/'
     | '/_authenticated/dashboard/'
+    | '/_authenticated/recipes/'
     | '/_authenticated/settings/'
     | '/_authenticated/statistics/'
+    | '/_authenticated/recipes/create/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -123,6 +159,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/recipes/': {
+      id: '/_authenticated/recipes/'
+      path: '/recipes'
+      fullPath: '/recipes/'
+      preLoaderRoute: typeof AuthenticatedRecipesIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/settings/': {
       id: '/_authenticated/settings/'
       path: '/settings'
@@ -137,21 +180,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedStatisticsIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/recipes/create/': {
+      id: '/_authenticated/recipes/create/'
+      path: '/recipes/create'
+      fullPath: '/recipes/create/'
+      preLoaderRoute: typeof AuthenticatedRecipesCreateIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
 interface AuthenticatedRouteChildren {
   AuthenticatedCalendarIndexRoute: typeof AuthenticatedCalendarIndexRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedRecipesIndexRoute: typeof AuthenticatedRecipesIndexRoute
   AuthenticatedSettingsIndexRoute: typeof AuthenticatedSettingsIndexRoute
   AuthenticatedStatisticsIndexRoute: typeof AuthenticatedStatisticsIndexRoute
+  AuthenticatedRecipesCreateIndexRoute: typeof AuthenticatedRecipesCreateIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedCalendarIndexRoute: AuthenticatedCalendarIndexRoute,
   AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+  AuthenticatedRecipesIndexRoute: AuthenticatedRecipesIndexRoute,
   AuthenticatedSettingsIndexRoute: AuthenticatedSettingsIndexRoute,
   AuthenticatedStatisticsIndexRoute: AuthenticatedStatisticsIndexRoute,
+  AuthenticatedRecipesCreateIndexRoute: AuthenticatedRecipesCreateIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
