@@ -27,20 +27,20 @@ export const noteRoutes = new Hono()
       const { userId } = c.var.user;
       const note = c.req.valid("json");
 
-      const validNote = insertNoteSchema.parse({
+      const validSchema = insertNoteSchema.parse({
         ...note,
         user_id: userId,
       });
 
       const data = await db
         .insert(notes)
-        .values(validNote)
+        .values(validSchema)
         .returning()
         .then((res) => res[0]);
 
       c.status(201);
 
-      return c.json({ note });
+      return c.json({ data });
     } catch (error) {
       console.log(error);
       throw error;

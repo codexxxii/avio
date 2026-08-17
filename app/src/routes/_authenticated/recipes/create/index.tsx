@@ -13,6 +13,8 @@ import { useUploadThing } from "@/lib/uploadthing";
 import { useState } from "react";
 import { ImageUp, PlusIcon, XIcon } from "lucide-react";
 import { toast } from "sonner";
+import { createRecipe } from "@/lib/api";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/recipes/create/")({
   component: RouteComponent,
@@ -72,12 +74,24 @@ function RouteComponent() {
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
     onClientUploadComplete: ([data]) => {
       setImageUrl(data.ufsUrl);
+      form.setValue("image_url", imageUrl);
     },
   });
 
+  const onSubmit = async (values: CreateRecipe) => {
+    await createRecipe(values);
+
+    form.reset();
+    setImageUrl(null);
+    toast.success("Recipe saved");
+  };
+
   return (
     <FormProvider {...form}>
-      <form className="p-5 w-full space-y-4">
+      <form
+        className="p-5 w-full space-y-4"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         {/* Name, Category, Save */}
         <div className="w-full flex gap-4">
           <Controller
@@ -111,7 +125,14 @@ function RouteComponent() {
                 )}
               />
             </div>
-            <button type="button" className="bg-black text-white">
+            <button
+              type="submit"
+              className={cn(
+                "bg-black text-white",
+                form.formState.isValid ? "" : "opacity-50 cursor-not-allowed",
+              )}
+              disabled={!form.formState.isValid}
+            >
               Save
             </button>
           </div>

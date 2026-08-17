@@ -1,8 +1,7 @@
 import { hc } from "hono/client";
 import type { ApiRoutes } from "@server/app";
 import { queryClient } from "@/main";
-import { queryOptions } from "@tanstack/react-query";
-import type { CreateNote } from "@server/shared-types";
+import type { CreateNote, CreateRecipe } from "@server/shared-types";
 
 const api = hc<ApiRoutes>("/").api;
 
@@ -22,12 +21,6 @@ export async function getCurrentUser() {
     throw e;
   }
 }
-
-export const userQueryOptions = queryOptions({
-  queryKey: ["current-user"],
-  queryFn: getCurrentUser,
-  staleTime: Infinity,
-});
 
 // Notes
 export async function createNote(note: CreateNote) {
@@ -77,6 +70,41 @@ export async function deleteNote({ id }: { id: string }) {
     const data = await res.json();
 
     queryClient.invalidateQueries({ queryKey: ["notes"] });
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+// Recipes
+export async function getRecipes() {
+  try {
+    const res = await api.recipes.$get();
+
+    if (!res.ok) {
+      throw new Error("SERVER ERROR");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function createRecipe(recipe: CreateRecipe) {
+  try {
+    const res = await api.recipes.$post({ json: recipe });
+
+    if (!res.ok) {
+      throw new Error("SERVER ERROR");
+    }
+
+    const data = await res.json();
 
     return data;
   } catch (error) {

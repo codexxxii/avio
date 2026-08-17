@@ -1,10 +1,14 @@
 import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
-import { userQueryOptions } from "@/lib/api";
+import { getCurrentUser } from "@/lib/api";
 import Sidebar from "@/components/sidebar";
 
 export const Route = createFileRoute("/_authenticated")({
   beforeLoad: ({ context }) => {
-    const user = context.queryClient.fetchQuery(userQueryOptions);
+    const user = context.queryClient.fetchQuery({
+      queryKey: ["current-user"],
+      queryFn: getCurrentUser,
+      staleTime: Infinity,
+    });
     return user;
   },
   component: RouteComponent,
