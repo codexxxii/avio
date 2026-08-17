@@ -222,7 +222,7 @@ export default function AddRecipeModal({ onCreate }: AddRecipeModalProps) {
                           type="button"
                           onClick={() => setMealType(typedType)}
                           className={[
-                            "rounded-md border px-3 py-2 text-sm capitalize transition",
+                            "rounded-md border text-sm capitalize transition",
                             active
                               ? "border-emerald-400 bg-emerald-100 text-emerald-700"
                               : "border-gray-200 text-gray-600 hover:bg-gray-50",
@@ -254,7 +254,7 @@ export default function AddRecipeModal({ onCreate }: AddRecipeModalProps) {
                           whileTap={{ scale: 0.98 }}
                           onClick={() => toggleRecipe(recipe)}
                           className={[
-                            "flex w-full items-center justify-between rounded-lg border p-4 text-left transition",
+                            "flex w-full items-center justify-between rounded-lg border text-left transition",
                             selected
                               ? "border-emerald-300 bg-emerald-50"
                               : "border-gray-200 hover:bg-gray-50",
@@ -300,7 +300,7 @@ export default function AddRecipeModal({ onCreate }: AddRecipeModalProps) {
                       type="button"
                       whileTap={{ scale: 0.95 }}
                       onClick={handleClose}
-                      className="h-10 rounded-md border border-gray-200 px-4 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+                      className="h-10! rounded-md border border-gray-200 px-4 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
                     >
                       Cancel
                     </motion.button>
@@ -312,7 +312,7 @@ export default function AddRecipeModal({ onCreate }: AddRecipeModalProps) {
                       }}
                       whileTap={{ scale: 0.95 }}
                       disabled={!date || selectedRecipes.length === 0}
-                      className="h-10 rounded-md bg-emerald-500 px-4 text-sm font-medium text-white transition hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-40"
+                      className="h-10! rounded-md bg-emerald-500 px-4 text-sm font-medium text-white transition hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       Add to Calendar
                     </motion.button>
