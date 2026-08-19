@@ -39,7 +39,7 @@ export default function NoteModal({
           transition={{ duration: 0.2 }}
         />
         <motion.div
-          className="w-2/5 h-100 rounded-md border border-gray-100 p-5 bg-white z-1000 shadow-md space-y-4 flex flex-col"
+          className="w-2/5 h-100 rounded-md border border-gray-100 p-5 bg-white z-1000 shadow-md space-y-7 flex flex-col"
           initial={{
             opacity: 0,
             scale: 0.95,
@@ -68,7 +68,7 @@ export default function NoteModal({
             <p>{content}</p>
           </div>
 
-          <div className="w-full flex justify-end items-center gap-4">
+          <div className="w-full flex justify-end items-center gap-7">
             <motion.button
               type="button"
               onClick={() => setViewNoteModal(false)}

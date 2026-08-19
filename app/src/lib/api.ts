@@ -112,3 +112,22 @@ export async function createRecipe(recipe: CreateRecipe) {
     throw error;
   }
 }
+
+export async function deleteRecipe(recipeId: string) {
+  try {
+    const res = await api.recipes.$delete({ json: { id: recipeId } });
+
+    if (!res.ok) {
+      throw new Error("SERVER ERROR");
+    }
+
+    const data = await res.json();
+
+    queryClient.invalidateQueries({ queryKey: ["recipes"] });
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

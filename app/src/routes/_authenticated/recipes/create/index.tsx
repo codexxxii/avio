@@ -89,11 +89,11 @@ function RouteComponent() {
   return (
     <FormProvider {...form}>
       <form
-        className="p-5 w-full space-y-4"
+        className="p-5 w-full space-y-7"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         {/* Name, Category, Save */}
-        <div className="w-full flex gap-4">
+        <div className="w-full flex gap-7">
           <Controller
             name="name"
             control={form.control}
@@ -107,24 +107,23 @@ function RouteComponent() {
             )}
           />
           <div className="flex space-x-4">
-            <div className="px-5 h-8 bg-black text-white rounded-md">
-              <Controller
-                name="category"
-                control={form.control}
-                render={({ field }) => (
-                  <select
-                    className="w-full h-full bg-black text-white space-x-2"
-                    {...field}
-                  >
-                    {categories.map((i) => (
-                      <option key={i.id} value={i.value}>
-                        {i.label}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              />
-            </div>
+            <Controller
+              name="category"
+              control={form.control}
+              render={({ field }) => (
+                <select
+                  className="px-5 h-8 bg-black text-white rounded-md"
+                  {...field}
+                >
+                  <option>Category</option>
+                  {categories.map((i) => (
+                    <option key={i.id} value={i.value}>
+                      {i.label}
+                    </option>
+                  ))}
+                </select>
+              )}
+            />
             <button
               type="submit"
               className={cn(
@@ -137,7 +136,7 @@ function RouteComponent() {
             </button>
           </div>
         </div>
-        <div className="w-full flex gap-4 h-100">
+        <div className="w-full flex gap-7 h-100">
           {/* Image */}
           {!imageUrl && !isUploading && (
             <Dropzone
@@ -171,7 +170,7 @@ function RouteComponent() {
             </div>
           )}
           {/* Serving, Prep Time, Cook Time */}
-          <div className="w-1/2 space-y-4">
+          <div className="w-1/2 space-y-7">
             <div className="w-full h-10 flex justify-between items-center">
               <p>Servings</p>
               <div className="px-5 w-32 h-8 bg-gray-100 rounded-md">
@@ -228,9 +227,9 @@ function RouteComponent() {
             </div>
           </div>
         </div>
-        <div className="w-full flex gap-4">
+        <div className="w-full flex gap-7">
           {/* Ingredients */}
-          <div className="w-1/2 space-y-4">
+          <div className="w-1/2 space-y-7">
             <div className="w-full flex justify-between items-center">
               <p className="text-3xl font-extrabold tracking-tighter">
                 Ingredients
@@ -246,7 +245,7 @@ function RouteComponent() {
             {ings.map((field, index) => (
               <div
                 key={field.id}
-                className="w-full flex justify-between items-center gap-4"
+                className="w-full flex justify-between items-center gap-7"
               >
                 <Controller
                   name={`ingredients.${index}.ingredient`}
@@ -270,7 +269,7 @@ function RouteComponent() {
             ))}
           </div>
           {/* Instructions */}
-          <div className="w-1/2 space-y-4">
+          <div className="w-1/2 space-y-7">
             <div className="w-full flex justify-between items-center">
               <p className="text-3xl font-extrabold tracking-tighter">
                 Instructions
@@ -286,7 +285,7 @@ function RouteComponent() {
             {ins.map((field, index) => (
               <div
                 key={field.id}
-                className="w-full flex justify-start items-start gap-4"
+                className="w-full flex justify-start items-start gap-7"
               >
                 <Controller
                   name={`instructions.${index}.instruction`}

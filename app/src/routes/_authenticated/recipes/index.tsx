@@ -3,19 +3,23 @@ import { motion } from "framer-motion";
 import { AlertCircleIcon, Plus } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getRecipes } from "@/lib/api";
+import RecipeOptionsModal from "@/components/modals/recipes/recipe-options-modal";
+import { useContext } from "@/lib/use-context";
 
 export const Route = createFileRoute("/_authenticated/recipes/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const { recipeOptionsModal, setRecipeOptionsModal } = useContext();
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["recipes"],
     queryFn: getRecipes,
   });
 
   return (
-    <div className="w-full p-5 space-y-4">
+    <div className="w-full p-5 space-y-7">
       <motion.div
         className="w-full flex justify-between items-center"
         initial="hidden"
@@ -59,23 +63,27 @@ function RouteComponent() {
         </Link>
       </motion.div>
       {data && (
-        <div className="w-full grid grid-cols-4 gap-4 place-items-start">
+        <div className="w-full grid grid-cols-4 gap-7 place-items-start">
           {data.data.map((recipe) => (
-            <div
-              key={recipe.id}
-              className="w-full rounded-md border border-gray-100 px-5 py-2 flex flex-col h-30 cursor-pointer"
-            >
-              <div className="grow flex justify-start items-start">
-                <p className="text-xl font-extrabold tracking-tighter">
-                  {recipe.name}
-                </p>
-              </div>
-              <div className="flex justify-end items-center">
-                <div className="px-2 py-1 rounded-md border border-gray-100">
-                  <p className="text-xs capitalize">{recipe.category}</p>
+            <>
+              <div
+                onClick={() => setRecipeOptionsModal(true)}
+                key={recipe.id}
+                className="w-full rounded-md border border-gray-100 px-5 py-2 flex flex-col h-30 cursor-pointer relative"
+              >
+                <div className="grow flex justify-start items-start">
+                  <p className="text-xl font-extrabold tracking-tighter">
+                    {recipe.name}
+                  </p>
+                </div>
+                <div className="flex justify-end items-center">
+                  <div className="px-2 py-1 rounded-md border border-gray-100">
+                    <p className="text-xs capitalize">{recipe.category}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+              {recipeOptionsModal && <RecipeOptionsModal recipe={recipe} />}
+            </>
           ))}
         </div>
       )}

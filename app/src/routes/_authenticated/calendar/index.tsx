@@ -10,11 +10,11 @@ export const Route = createFileRoute("/_authenticated/calendar/")({
 
 function RouteComponent() {
   return (
-    <div className="w-full p-5 flex gap-4">
+    <div className="w-full p-5 flex gap-7">
       <div className="w-3/5">
         <Calendar />
       </div>
-      <div className="w-2/5 flex flex-col gap-4">
+      <div className="w-2/5 flex flex-col gap-7">
         <AddRecipeModal />
         <AddWorkoutModal />
         <AddEventModal />

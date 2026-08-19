@@ -19,11 +19,11 @@ export default function Sidebar() {
       <div>
         <motion.p
           variants={itemVariants as any}
-          className="mb-5 text-4xl font-extrabold tracking-tighter"
+          className="mb-7 text-4xl font-extrabold tracking-tighter"
         >
           avio
         </motion.p>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-7">
           <motion.p
             variants={itemVariants as any}
             className="text-xs text-gray-500"
@@ -49,7 +49,7 @@ export default function Sidebar() {
           ))}
         </div>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-7">
         <motion.p
           variants={itemVariants as any}
           className="text-xs text-gray-500"

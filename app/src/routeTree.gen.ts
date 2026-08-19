@@ -16,6 +16,7 @@ import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authe
 import { Route as AuthenticatedRecipesIndexRouteImport } from './routes/_authenticated/recipes/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
 import { Route as AuthenticatedStatisticsIndexRouteImport } from './routes/_authenticated/statistics/index'
+import { Route as AuthenticatedRecipesRecipeIdIndexRouteImport } from './routes/_authenticated/recipes/$recipeId/index'
 import { Route as AuthenticatedRecipesCreateIndexRouteImport } from './routes/_authenticated/recipes/create/index'
 
 const IndexRoute = IndexRouteImport.update({
@@ -57,6 +58,12 @@ const AuthenticatedStatisticsIndexRoute =
     path: '/statistics/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedRecipesRecipeIdIndexRoute =
+  AuthenticatedRecipesRecipeIdIndexRouteImport.update({
+    id: '/recipes/$recipeId/',
+    path: '/recipes/$recipeId/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedRecipesCreateIndexRoute =
   AuthenticatedRecipesCreateIndexRouteImport.update({
     id: '/recipes/create/',
@@ -71,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/recipes/': typeof AuthenticatedRecipesIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/statistics/': typeof AuthenticatedStatisticsIndexRoute
+  '/recipes/$recipeId/': typeof AuthenticatedRecipesRecipeIdIndexRoute
   '/recipes/create/': typeof AuthenticatedRecipesCreateIndexRoute
 }
 export interface FileRoutesByTo {
@@ -80,6 +88,7 @@ export interface FileRoutesByTo {
   '/recipes': typeof AuthenticatedRecipesIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/statistics': typeof AuthenticatedStatisticsIndexRoute
+  '/recipes/$recipeId': typeof AuthenticatedRecipesRecipeIdIndexRoute
   '/recipes/create': typeof AuthenticatedRecipesCreateIndexRoute
 }
 export interface FileRoutesById {
@@ -91,6 +100,7 @@ export interface FileRoutesById {
   '/_authenticated/recipes/': typeof AuthenticatedRecipesIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/statistics/': typeof AuthenticatedStatisticsIndexRoute
+  '/_authenticated/recipes/$recipeId/': typeof AuthenticatedRecipesRecipeIdIndexRoute
   '/_authenticated/recipes/create/': typeof AuthenticatedRecipesCreateIndexRoute
 }
 export interface FileRouteTypes {
@@ -102,6 +112,7 @@ export interface FileRouteTypes {
     | '/recipes/'
     | '/settings/'
     | '/statistics/'
+    | '/recipes/$recipeId/'
     | '/recipes/create/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -111,6 +122,7 @@ export interface FileRouteTypes {
     | '/recipes'
     | '/settings'
     | '/statistics'
+    | '/recipes/$recipeId'
     | '/recipes/create'
   id:
     | '__root__'
@@ -121,6 +133,7 @@ export interface FileRouteTypes {
     | '/_authenticated/recipes/'
     | '/_authenticated/settings/'
     | '/_authenticated/statistics/'
+    | '/_authenticated/recipes/$recipeId/'
     | '/_authenticated/recipes/create/'
   fileRoutesById: FileRoutesById
 }
@@ -180,6 +193,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedStatisticsIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/recipes/$recipeId/': {
+      id: '/_authenticated/recipes/$recipeId/'
+      path: '/recipes/$recipeId'
+      fullPath: '/recipes/$recipeId/'
+      preLoaderRoute: typeof AuthenticatedRecipesRecipeIdIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/recipes/create/': {
       id: '/_authenticated/recipes/create/'
       path: '/recipes/create'
@@ -196,6 +216,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRecipesIndexRoute: typeof AuthenticatedRecipesIndexRoute
   AuthenticatedSettingsIndexRoute: typeof AuthenticatedSettingsIndexRoute
   AuthenticatedStatisticsIndexRoute: typeof AuthenticatedStatisticsIndexRoute
+  AuthenticatedRecipesRecipeIdIndexRoute: typeof AuthenticatedRecipesRecipeIdIndexRoute
   AuthenticatedRecipesCreateIndexRoute: typeof AuthenticatedRecipesCreateIndexRoute
 }
 
@@ -205,6 +226,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedRecipesIndexRoute: AuthenticatedRecipesIndexRoute,
   AuthenticatedSettingsIndexRoute: AuthenticatedSettingsIndexRoute,
   AuthenticatedStatisticsIndexRoute: AuthenticatedStatisticsIndexRoute,
+  AuthenticatedRecipesRecipeIdIndexRoute:
+    AuthenticatedRecipesRecipeIdIndexRoute,
   AuthenticatedRecipesCreateIndexRoute: AuthenticatedRecipesCreateIndexRoute,
 }
 

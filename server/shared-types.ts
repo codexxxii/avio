@@ -37,6 +37,19 @@ export const createRecipeSchema = insertRecipeSchema
     ),
   });
 
+export const deleteRecipeSchema = insertRecipeSchema.omit({
+  name: true,
+  category: true,
+  ingredients: true,
+  instructions: true,
+  image_url: true,
+  prep_time: true,
+  cook_time: true,
+  servings: true,
+  created_at: true,
+  user_id: true,
+});
+
 // Client
 export type CreateNote = z.infer<typeof createNoteSchema>;
 export type CreateRecipe = z.infer<typeof createRecipeSchema>;

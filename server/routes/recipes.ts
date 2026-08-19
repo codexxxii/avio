@@ -2,9 +2,9 @@ import { Hono } from "hono";
 import { getUser } from "../clerk";
 import { db } from "../db";
 import { insertRecipeSchema, recipes } from "../db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { zValidator } from "@hono/zod-validator";
-import { createRecipeSchema } from "../shared-types";
+import { createRecipeSchema, deleteRecipeSchema } from "../shared-types";
 
 export const recipeRoutes = new Hono()
   .get("/", getUser, async (c) => {
@@ -46,6 +46,23 @@ export const recipeRoutes = new Hono()
         .then((res) => res[0]);
 
       return c.json({ data });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  })
+  .delete("/", getUser, zValidator("json", deleteRecipeSchema), async (c) => {
+    try {
+      const { userId } = c.var.user;
+      const { id } = c.req.valid("json");
+
+      const recipe = await db
+        .delete(recipes)
+        .where(and(eq(recipes.user_id, userId), eq(recipes.id, id!)))
+        .returning()
+        .then((res) => res[0]);
+
+      return c.json(recipe);
     } catch (error) {
       console.log(error);
       throw error;

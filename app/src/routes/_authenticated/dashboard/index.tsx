@@ -15,7 +15,7 @@ function RouteComponent() {
 
   return (
     <>
-      <main className="w-[60vw] p-5 space-y-4 relative">
+      <main className="w-[60vw] p-5 space-y-7 relative">
         <motion.div
           className="w-full flex justify-between items-center"
           initial="hidden"
@@ -77,7 +77,7 @@ function RouteComponent() {
           Chart
         </div>
         <motion.div
-          className="w-full grow flex h-60 gap-4"
+          className="w-full grow flex h-60 gap-7"
           initial="hidden"
           animate="visible"
           variants={{
@@ -90,7 +90,7 @@ function RouteComponent() {
           }}
         >
           <motion.div
-            className="w-3/5 h-full grid grid-cols-2 gap-4"
+            className="w-3/5 h-full grid grid-cols-2 gap-7"
             variants={{
               hidden: {},
               visible: {

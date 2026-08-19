@@ -22,7 +22,7 @@ export default function Notes() {
 
   return (
     <motion.div
-      className="w-2/5 h-full space-y-4"
+      className="w-2/5 h-full space-y-7"
       variants={itemVariants as any}
     >
       <motion.div
